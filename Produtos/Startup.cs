@@ -10,7 +10,7 @@ namespace API
         {
             services.AddControllers();
             services.AddDbContext<AppDbContext>();
-            
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
