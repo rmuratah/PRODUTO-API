@@ -8,7 +8,7 @@ namespace Produtos.Controllers
     [Route("v1")]
     public class ProdutoController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("Produtos")]
         public async Task<IActionResult> GetAsync(
             [FromServices] AppDbContext context
         )
@@ -20,5 +20,20 @@ namespace Produtos.Controllers
 
             return Ok(Produtos);
         }
+
+        [HttpGet("Produtos/{id}")]
+        public async Task<IActionResult> GetByIdAsync(
+            [FromServices] AppDbContext context,
+            [FromRoute] int Id
+        )
+        {
+            var Produto = await context
+                .Produtos
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == Id);
+
+            return Produto == null ? NotFound() : Ok(Produto);  
+        }
+
     }
 }
